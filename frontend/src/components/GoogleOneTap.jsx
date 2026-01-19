@@ -1,11 +1,16 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function GoogleOneTap() {
   const initializedRef = useRef(false);
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Don't show One Tap if user is already logged in or still loading
+    if (user || loading) return;
 
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     if (!clientId) {
@@ -107,7 +112,7 @@ export default function GoogleOneTap() {
         window.google?.accounts?.id?.cancel();
       } catch {}
     };
-  }, []);
+  }, [user, loading]);
 
   return null;
 }
