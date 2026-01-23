@@ -40,11 +40,9 @@ const HamburgerMenu = () => {
           <nav className="hamburger-menu">
             <ul>
               <li><Link to="/" onClick={closeMenu}>Home</Link></li>
-              <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
-              <li><Link to="/about" onClick={closeMenu}>About</Link></li>
-              <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
-              <li><Link to="/exhibition" onClick={closeMenu}>Exhibitions</Link></li>
-              <li><Link to="/sessions" onClick={closeMenu}>Sessions</Link></li>
+              <li><Link to="/events" onClick={closeMenu}>Events</Link></li> 
+              <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li> 
+              <li><Link to="/workshops" onClick={closeMenu}>Workshops</Link></li>
               <li><Link to="/about" onClick={closeMenu}>About</Link></li>
             </ul>
 

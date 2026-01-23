@@ -646,89 +646,88 @@ export default function Events() {
             </div>
           )}
 
-          {/* Events Carousel */}
+          {/* Events Section */}
           {!loading && !error && filteredEvents.length > 0 && (
-            <div className="relative">
-              {/* Navigation Buttons */}
-              {filteredEvents.length > 1 && (
-                <>
-                  <motion.button
-                    onClick={handlePrev}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full hover:border-white/40 hover:bg-black/80 transition-all duration-300 hidden lg:block"
+            <>
+              {/* ================= MOBILE (SLIDER) ================= */}
+              <div className="block lg:hidden relative">
+                {/* Navigation Buttons */}
+                {filteredEvents.length > 1 && (
+                  <>
+                    <motion.button
+                      onClick={handlePrev}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full"
+                    >
+                      <IconChevronLeft className="h-6 w-6 text-white" />
+                    </motion.button>
+
+                    <motion.button
+                      onClick={handleNext}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full"
+                    >
+                      <IconChevronRight className="h-6 w-6 text-white" />
+                    </motion.button>
+                  </>
+                )}
+
+                {/* Sliding Card */}
+                <AnimatePresence custom={direction} mode="wait">
+                  <motion.div
+                    key={currentIndex}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 },
+                    }}
                   >
-                    <IconChevronLeft className="h-6 w-6 text-white" />
-                  </motion.button>
+                    <EventCard
+                      event={filteredEvents[currentIndex]}
+                      isHovered={isHovered}
+                      setIsHovered={setIsHovered}
+                      onRegister={handleRegister}
+                      isRegistered={isRegistered}
+                      registering={registering}
+                      registrationCount={registrationCount}
+                    />
+                  </motion.div>
+                </AnimatePresence>
 
-                  <motion.button
-                    onClick={handleNext}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-4 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full hover:border-white/40 hover:bg-black/80 transition-all duration-300 hidden lg:block"
-                  >
-                    <IconChevronRight className="h-6 w-6 text-white" />
-                  </motion.button>
-                </>
-              )}
-
-              {/* Event Card */}
-              <AnimatePresence custom={direction} mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
-                  }}
-                >
-                  <EventCard
-                    event={filteredEvents[currentIndex]}
-                    isHovered={isHovered}
-                    setIsHovered={setIsHovered}
-                    onRegister={handleRegister}
-                    isRegistered={isRegistered}
-                    registering={registering}
-                    registrationCount={registrationCount}
-                  />
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Pagination Dots */}
-              {filteredEvents.length > 1 && (
+                {/* Pagination */}
                 <div className="text-center mt-12">
                   <p className="font-['Michroma'] text-gray-400 text-sm mb-4 tracking-wider">
                     {currentIndex + 1} / {filteredEvents.length}
                   </p>
-                  <div className="flex justify-center gap-2.5">
-                    {filteredEvents.map((_, idx) => (
-                      <motion.button
-                        key={idx}
-                        onClick={() => {
-                          setDirection(idx > currentIndex ? 1 : -1);
-                          setCurrentIndex(idx);
-                        }}
-                        animate={{
-                          scale: idx === currentIndex ? 1.2 : 1,
-                        }}
-                        whileHover={{ scale: idx === currentIndex ? 1.3 : 1.1 }}
-                        transition={{ duration: 0.3 }}
-                        className={`h-2 rounded-full transition-all duration-500 ${
-                          idx === currentIndex
-                            ? "w-10 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]"
-                            : "w-2 bg-white/30 hover:bg-white/50"
-                        }`}
-                      />
-                    ))}
-                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+
+              {/* ================= DESKTOP (SCROLL LIST) ================= */}
+              <div className="hidden lg:block px-6 pb-24">
+                <div className="flex flex-col gap-32 max-w-7xl mx-auto">
+                  {filteredEvents.map((event, idx) => (
+                    <EventCard
+                      key={event._id || idx}
+                      event={event}
+                      isHovered={isHovered}
+                      setIsHovered={setIsHovered}
+                      onRegister={handleRegister}
+                      isRegistered={isRegistered}
+                      registering={registering}
+                      registrationCount={registrationCount}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
           )}
+
         </div>
 
         {/* Footer Section */}
