@@ -80,6 +80,7 @@ export default function SmoothCursor({
   const lastUpdateTime = useRef(Date.now());
   const previousAngle = useRef(0);
   const accumulatedRotation = useRef(0);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
@@ -93,6 +94,21 @@ export default function SmoothCursor({
     stiffness: 500,
     damping: 35,
   });
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(pointer: coarse)");
+
+    const handleChange = () => {
+      setIsTouchDevice(mediaQuery.matches);
+    };
+
+    handleChange(); // initial check
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   useEffect(() => {
     const updateVelocity = (currentPos) => {
@@ -164,8 +180,12 @@ export default function SmoothCursor({
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [cursorX, cursorY, rotation, scale]);
+  if (isTouchDevice) {
+    return null;
+  }
 
   return (
+
     <motion.div
       style={{
         position: "fixed",
