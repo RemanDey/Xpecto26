@@ -135,7 +135,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.7 }}
             >
-              <MagneticButton magnetStrength={0.3}>LEARN MORE</MagneticButton>
+              <MagneticButton magnetStrength={0.3}><a href="/events">LEARN MORE</a></MagneticButton>
             </motion.div>
           </motion.div>
         </div>
