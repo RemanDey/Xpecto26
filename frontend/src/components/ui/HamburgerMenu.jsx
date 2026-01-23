@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IconLogout, IconUserPlus, IconLoader2, IconUser } from "@tabler/icons-react";
+import { useAuth } from "../../context/AuthContext";
 import "./HamburgerMenu.css";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isAuthenticated, loading, loginWithGoogle, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -11,6 +15,11 @@ const HamburgerMenu = () => {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
+    closeMenu();
   };
 
   return (
@@ -36,7 +45,69 @@ const HamburgerMenu = () => {
               <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
               <li><Link to="/exhibition" onClick={closeMenu}>Exhibitions</Link></li>
               <li><Link to="/sessions" onClick={closeMenu}>Sessions</Link></li>
+              <li><Link to="/about" onClick={closeMenu}>About</Link></li>
             </ul>
+
+            {/* Auth Section */}
+            <div className="hamburger-auth-section">
+              {loading ? (
+                <div className="hamburger-auth-loading">
+                  <IconLoader2 className="h-5 w-5 animate-spin text-white/40" />
+                </div>
+              ) : isAuthenticated && user ? (
+        
+                <div className="hamburger-user-section">
+                  {/* User Profile Button */}
+                  <button
+                    onClick={handleProfileClick}
+                    className="hamburger-profile-button"
+                  >
+                    {user.avatar ? (
+                      <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="hamburger-avatar"
+                      />
+                    ) : (
+                      <div className="hamburger-avatar-placeholder">
+                        <span>{user.name?.charAt(0) || "?"}</span>
+                      </div>
+                    )}
+                    <div className="hamburger-user-info">
+                      <p className="hamburger-user-name">{user.name}</p>
+                      <p className="hamburger-user-email">
+                        {user.collegeName || user.email}
+                      </p>
+                    </div>
+                    <IconUser className="h-5 w-5 text-white/30" />
+                  </button>
+
+                  {/* Sign Out Button */}
+                  <button
+                    onClick={() => {
+                      logout();
+                      closeMenu();
+                    }}
+                    className="hamburger-signout-button"
+                  >
+                    <IconLogout className="h-5 w-5" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+           
+                <button
+                  onClick={() => {
+                    loginWithGoogle();
+                    closeMenu();
+                  }}
+                  className="hamburger-signup-button"
+                >
+                  <IconUserPlus className="h-5 w-5" />
+                  <span>Sign Up with Google</span>
+                </button>
+              )}
+            </div>
           </nav>
         </>
       )}
