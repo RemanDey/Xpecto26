@@ -285,10 +285,7 @@ export default function Sessions() {
 
       {/* Scrollable Content */}
       <div className="relative z-10">
-        {/* Menu */}
-        <div className="relative h-15 z-50">
-          <FlowingMenu items={demoItems} />
-        </div>
+       
 
         {/* Header Section */}
         <div className="relative pt-24 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 px-4 sm:px-6">
