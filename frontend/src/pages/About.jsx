@@ -45,7 +45,7 @@ export default function About() {
 
   const contacts = [
     { label: "tech@xpecto.org", href: "mailto:tech@xpecto.org" },
-    { label: "contact@xpecto.org", href: "mailto:contact@xpecto.org" },
+    { label: "publicity@xpecto.org", href: "mailto:publicity@xpecto.org" },
   ];
 
   // Fetch team members from backend

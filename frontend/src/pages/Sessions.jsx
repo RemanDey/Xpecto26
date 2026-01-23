@@ -17,7 +17,7 @@ const SessionCard = ({ session, index }) => {
   return (
     <motion.div
       ref={cardRef}
-      className="flex-shrink-0 w-[380px] h-[520px]"
+      className="flex-shrink-0 w-[340px] sm:w-[380px] h-[520px]"
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -52,7 +52,7 @@ const SessionCard = ({ session, index }) => {
 
           {/* Floating time badge */}
           <motion.div
-            className="absolute top-4 right-4 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm"
+            className="absolute top-4 right-4 px-3 sm:px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm"
             whileHover={{ scale: 1.1 }}
             animate={{ y: isHovered ? -5 : 0 }}
             transition={{ duration: 0.3 }}
@@ -65,7 +65,7 @@ const SessionCard = ({ session, index }) => {
           {/* Category badge */}
           <div className="absolute bottom-4 left-4">
             <motion.div
-              className="px-4 py-1.5 rounded-full border border-white/30 bg-black/60 backdrop-blur-sm"
+              className="px-3 sm:px-4 py-1.5 rounded-full border border-white/30 bg-black/60 backdrop-blur-sm"
               whileHover={{ scale: 1.05 }}
             >
               <span className="font-['Michroma'] text-xs font-semibold text-white tracking-widest">
@@ -76,13 +76,13 @@ const SessionCard = ({ session, index }) => {
         </div>
 
         {/* Content section */}
-        <div className="relative p-6 space-y-4">
+        <div className="relative p-5 sm:p-6 space-y-4">
           <motion.div
             animate={{ y: isHovered ? -5 : 0 }}
             transition={{ duration: 0.3 }}
           >
             {/* Title */}
-            <h3 className="font-['Michroma'] text-xl font-bold text-white mb-2 leading-tight">
+            <h3 className="font-['Michroma'] text-lg sm:text-xl font-bold text-white mb-2 leading-tight">
               {session.title}
             </h3>
 
@@ -96,7 +96,7 @@ const SessionCard = ({ session, index }) => {
             />
 
             {/* Description */}
-            <p className="font-['Michroma'] text-gray-400 text-sm leading-relaxed line-clamp-3">
+            <p className="font-['Michroma'] text-gray-400 text-xs sm:text-sm leading-relaxed line-clamp-3">
               {session.description}
             </p>
           </motion.div>
@@ -131,7 +131,7 @@ const SessionCard = ({ session, index }) => {
             transition={{ duration: 0.3 }}
           >
             <div className="flex items-center gap-2 text-white group-hover:text-gray-200 transition-colors">
-              <span className="font-['Michroma'] text-sm font-semibold tracking-wider">
+              <span className="font-['Michroma'] text-xs sm:text-sm font-semibold tracking-wider">
                 LEARN MORE
               </span>
               <motion.span
@@ -171,7 +171,7 @@ export default function Sessions() {
   const planetY = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const planetRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
-  const demoItems = [{ link: "#", text: "XPECTO'26", image: "" }];
+  const demoItems = [{ link: "#", text: "XPECTO", image: "" }];
 
   const [sessions, setSessions] = useState([]);
   const [groupedSessions, setGroupedSessions] = useState({});
@@ -253,7 +253,7 @@ export default function Sessions() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full min-h-screen relative bg-black">
+    <div ref={containerRef} className="w-full min-h-screen relative bg-black overflow-x-hidden">
       {/* Fixed Background Section */}
       <div className="fixed top-0 left-0 w-full h-screen z-0">
         <div className="absolute inset-0">
@@ -263,7 +263,7 @@ export default function Sessions() {
 
         {/* Fixed Planet with Parallax */}
         <motion.div
-          className="absolute top-1/2 right-[10%] -translate-y-1/2 scale-100"
+          className="absolute top-1/2 right-[5%] sm:right-[10%] -translate-y-1/2 scale-75 sm:scale-90 lg:scale-100"
           style={{ y: planetY, rotate: planetRotate }}
         >
           <FloatingElement
@@ -274,7 +274,7 @@ export default function Sessions() {
             <motion.img
               src="./blue_planet.png"
               alt="Planet"
-              className="w-[600px] h-[600px] object-contain"
+              className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.2 }}
@@ -291,7 +291,7 @@ export default function Sessions() {
         </div>
 
         {/* Header Section */}
-        <div className="relative pt-40 pb-16 px-6">
+        <div className="relative pt-24 sm:pt-32 lg:pt-40 pb-12 sm:pb-16 px-4 sm:px-6">
           <motion.div
             className="text-center max-w-5xl mx-auto"
             initial={{ opacity: 0, y: -40 }}
@@ -299,20 +299,20 @@ export default function Sessions() {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.div
-              className="inline-block mb-6"
+              className="inline-block mb-4 sm:mb-6"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="px-6 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
-                <span className="font-['Michroma'] text-sm text-white tracking-widest">
+              <div className="px-4 sm:px-6 py-2 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
+                <span className="font-['Michroma'] text-xs sm:text-sm text-white tracking-widest">
                   XPECTO'26 PRESENTS
                 </span>
               </div>
             </motion.div>
 
             <motion.h1
-              className="font-['Michroma'] text-6xl md:text-8xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-white mb-8 tracking-[0.2em] leading-tight"
+              className="font-['Michroma'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-white mb-6 sm:mb-8 tracking-[0.15em] sm:tracking-[0.2em] leading-tight px-4 break-words"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.3 }}
@@ -321,14 +321,14 @@ export default function Sessions() {
             </motion.h1>
 
             <motion.div
-              className="h-1 w-48 mx-auto bg-gradient-to-r from-transparent via-white to-transparent mb-8"
+              className="h-1 w-32 sm:w-48 mx-auto bg-gradient-to-r from-transparent via-white to-transparent mb-6 sm:mb-8"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
             />
 
             <motion.p
-              className="font-['Michroma'] text-xl md:text-2xl text-gray-300 tracking-wider max-w-3xl mx-auto leading-relaxed"
+              className="font-['Michroma'] text-sm sm:text-lg md:text-xl lg:text-2xl text-gray-300 tracking-wider max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -339,7 +339,7 @@ export default function Sessions() {
         </div>
 
         {/* Scrollable Sessions Container */}
-        <div className="relative px-6 pb-20">
+        <div className="relative px-4 sm:px-6 pb-16 sm:pb-20">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -347,35 +347,35 @@ export default function Sessions() {
           >
             {loading ? (
               <div className="flex justify-center items-center h-64">
-                <div className="text-white text-xl font-['Michroma'] animate-pulse">
+                <div className="text-white text-lg sm:text-xl font-['Michroma'] animate-pulse">
                   Loading workshops...
                 </div>
               </div>
             ) : error ? (
               <div className="flex justify-center items-center h-64">
-                <div className="text-red-400 text-xl font-['Michroma']">
+                <div className="text-red-400 text-lg sm:text-xl font-['Michroma'] px-4 text-center">
                   {error}
                 </div>
               </div>
             ) : Object.keys(groupedSessions).length === 0 ? (
               <div className="flex justify-center items-center h-64">
-                <div className="text-gray-400 text-xl font-['Michroma']">
-                  No workshops found.
+                <div className="text-gray-400 text-lg sm:text-xl font-['Michroma']">
+                  COMING SOON...
                 </div>
               </div>
             ) : (
               Object.entries(groupedSessions).map(
                 ([dateLabel, dateSessions], groupIndex) => (
-                  <div className="mb-16" key={groupIndex}>
+                  <div className="mb-12 sm:mb-16" key={groupIndex}>
                     <motion.div
-                      className="flex items-center gap-4 mb-8"
+                      className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
                       initial={{ opacity: 0, x: -30 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6 }}
                     >
-                      <div className="px-6 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                        <span className="font-['Michroma'] text-sm font-bold text-white tracking-widest">
+                      <div className="px-4 sm:px-6 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                        <span className="font-['Michroma'] text-xs sm:text-sm font-bold text-white tracking-widest">
                           {dateLabel}
                         </span>
                       </div>
@@ -383,7 +383,7 @@ export default function Sessions() {
                     </motion.div>
 
                     <div className="overflow-x-auto scrollbar-hide">
-                      <div className="flex gap-6 pb-4 px-2">
+                      <div className="flex gap-4 sm:gap-6 pb-4 px-2">
                         {dateSessions.map((session, index) => (
                           <SessionCard
                             key={session._id || index}
@@ -402,26 +402,26 @@ export default function Sessions() {
 
         {/* Footer Section */}
         <motion.div
-          className="relative py-20 text-center border-t border-white/10"
+          className="relative py-16 sm:py-20 text-center border-t border-white/10 px-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
           <motion.div
-            className="flex items-center justify-center gap-4 mb-4"
+            className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-white" />
-            <p className="font-['Michroma'] text-gray-400 text-sm tracking-[0.3em]">
+            <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent to-white" />
+            <p className="font-['Michroma'] text-gray-400 text-xs sm:text-sm tracking-[0.3em]">
               XPECTO'26
             </p>
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-white" />
+            <div className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-white" />
           </motion.div>
-          <p className="font-['Michroma'] text-gray-500 text-xs tracking-widest">
+          <p className="font-['Michroma'] text-gray-500 text-[10px] sm:text-xs tracking-widest">
             MARCH 14-16, 2026 • HIMALAYAS' BIGGEST TECHFEST
           </p>
         </motion.div>
