@@ -7,9 +7,11 @@ import FlowingMenu from "../components/ui/FlowingMenu";
 import ParticleBackground from "../components/ui/ParticleBackground";
 import MagneticButton from "../components/ui/MagneticButton";
 import FloatingElement from "../components/ui/FloatingElement";
-import AnimatedCounter from "../components/ui/AnimatedCounter";
+import AnimatedCounter from "../components/ui/AnimatedCounter"; 
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -37,11 +39,19 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const demoItems = [{ link: "#", text: "XPECTO", image: "./logo.png" }];
+  const demoItems = [{ 
+    link: "#", 
+    text: isAuthenticated ? "XPECTO" : "LOGIN TO BE COOL", 
+    image: "./logo.png" 
+  }];
+
+  // Marquee text based on authentication status
+  const marqueeText = isAuthenticated ? "XPECTO" : "LOGIN TO BE COOL";
+  const marqueeItems = Array(20).fill(marqueeText);
 
   return (
-    <div className="w-full min-h-screen relative *:">
-      <div className="w-full h-screen relative overflow-hidden  ">
+    <div className="w-full min-h-screen relative">
+      <div className="w-full h-screen relative overflow-hidden">
          <div className="absolute inset-0">
           <img 
             src="./bg.png" 
@@ -54,6 +64,7 @@ export default function Home() {
         <div className="relative h-15 z-50">
           <FlowingMenu items={demoItems} />
         </div>
+ 
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] z-10 scale-[1.8] xs:scale-[1.1] sm:scale-100 md:scale-100 lg:scale-100">
           <FloatingElement
@@ -75,8 +86,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] flex flex-col items-center text-center z-20">
  
           <div
-            className="flex w-280 h-63.75 justify-start items-center font-['Michroma'] mb-2
- text-[84px] font-light leading-[119.438px] text-white tracking-[120px]   text-left z-13 scale-[0.25] xs:scale-[0.35] sm:scale-50 md:scale-75 lg:scale-90 xl:scale-100"
+            className="flex w-280 h-63.75 justify-start items-center font-['Michroma'] mb-2 text-[84px] font-light leading-[119.438px] text-white tracking-[120px] text-left z-13 scale-[0.25] xs:scale-[0.35] sm:scale-50 md:scale-75 lg:scale-90 xl:scale-100"
             shimmerWidth="300px"
             shimmerColor="rgba(255, 255, 255, 0.9)"
             duration={4}
@@ -86,8 +96,7 @@ export default function Home() {
 
  
           <motion.span
-            className="flex w-232.5 h-8.5 justify-center items-center font-['Michroma'] text-[24px] font-bold leading-[32.813px] text-white  mt-2 mb-10
- text-center whitespace-nowrap z-11 scale-[0.4] xs:scale-[0.5] sm:scale-[0.65] md:scale-[0.8] lg:scale-90 xl:scale-100"
+            className="flex w-232.5 h-8.5 justify-center items-center font-['Michroma'] text-[24px] font-bold leading-[32.813px] text-white mt-2 mb-10 text-center whitespace-nowrap z-11 scale-[0.4] xs:scale-[0.5] sm:scale-[0.65] md:scale-[0.8] lg:scale-90 xl:scale-100"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -101,15 +110,13 @@ export default function Home() {
           </motion.span>
 
           <motion.div
-            className=" mt-2
- z-20 scale-[0.5] xs:scale-[0.6] sm:scale-[0.7] md:scale-[0.85] lg:scale-95 xl:scale-100"
+            className="mt-2 z-20 scale-[0.5] xs:scale-[0.6] sm:scale-[0.7] md:scale-[0.85] lg:scale-95 xl:scale-100"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
             <div
-              className="mt-2
- flex gap-6 justify-center items-center  mb-5"
+              className="mt-2 flex gap-6 justify-center items-center mb-5"
             >
               <AnimatedCounter value={timeLeft.days} label="DAYS" />
               <AnimatedCounter value={timeLeft.hours} label="HOURS" />
@@ -117,8 +124,7 @@ export default function Home() {
               <AnimatedCounter value={timeLeft.seconds} label="SECONDS" />
             </div>
             <motion.div
-              className="text-center mb-5 mt-2
- "
+              className="text-center mb-5 mt-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.5 }}
@@ -129,8 +135,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="flex justify-center mt-2
- "
+              className="flex justify-center mt-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.7 }}
