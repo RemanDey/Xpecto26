@@ -170,6 +170,7 @@ export const getCurrentUser = async (req, res) => {
         role: req.user.role,
         collegeEmail: req.user.collegeEmail,
         collegeName: req.user.collegeName,
+        contactNumber: req.user.contactNumber,
       },
     });
   } catch (error) {
@@ -185,19 +186,20 @@ export const getCurrentUser = async (req, res) => {
 // @access  Private
 export const completeProfile = async (req, res) => {
   try {
-    const { collegeEmail, collegeName } = req.body;
+    const { collegeEmail, collegeName, contactNumber } = req.body;
 
     // Validation
-    if (!collegeEmail || !collegeName) {
+    if (!collegeEmail || !collegeName || !contactNumber) {
       return res.status(400).json({
         success: false,
-        message: "College email and college name are required",
+        message: "College email, college name, and contact number are required",
       });
     }
 
     // Update user profile
     req.user.collegeEmail = collegeEmail;
     req.user.collegeName = collegeName;
+    req.user.contactNumber = contactNumber;
     await req.user.save();
 
     res.status(200).json({
@@ -211,6 +213,7 @@ export const completeProfile = async (req, res) => {
         role: req.user.role,
         collegeEmail: req.user.collegeEmail,
         collegeName: req.user.collegeName,
+        contactNumber: req.user.contactNumber,
       },
     });
   } catch (error) {

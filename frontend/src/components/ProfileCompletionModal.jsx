@@ -7,6 +7,7 @@ import {
   IconSchool,
   IconCheck,
   IconLoader2,
+  IconPhone,
 } from "@tabler/icons-react";
 import { useAuth } from "../context/AuthContext";
 
@@ -22,6 +23,7 @@ export default function ProfileCompletionModal() {
   const [formData, setFormData] = useState({
     collegeName: "",
     collegeEmail: user?.email || "",
+    contactNumber: "",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,6 +34,12 @@ export default function ProfileCompletionModal() {
 
     if (!formData.collegeName.trim()) {
       newErrors.collegeName = "College name is required";
+    }
+
+    if (!formData.contactNumber.trim()) {
+      newErrors.contactNumber = "Contact number is required";
+    } else if (!/^\d{10}$/.test(formData.contactNumber.trim())) {
+      newErrors.contactNumber = "Please enter a valid 10-digit phone number";
     }
 
     if (!userHasWorkspaceEmail) {
@@ -59,6 +67,7 @@ export default function ProfileCompletionModal() {
       collegeEmail: userHasWorkspaceEmail
         ? user.email
         : formData.collegeEmail.trim(),
+      contactNumber: formData.contactNumber.trim(),
     };
 
     const result = await completeProfile(profileData);
@@ -97,13 +106,7 @@ export default function ProfileCompletionModal() {
           {/* Header gradient */}
           <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-purple-500/10 to-transparent pointer-events-none" />
 
-          {/* Close button (optional - can be removed if required) */}
-          <button
-            onClick={() => setShowProfileCompletion(false)}
-            className="absolute top-4 right-4 p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] transition-colors z-10"
-          >
-            <IconX className="w-4 h-4 text-white/50" />
-          </button>
+          {/* Close button removed for compulsory key details */}
 
           {/* Content */}
           <div className="relative p-6 pt-8">
@@ -203,6 +206,33 @@ export default function ProfileCompletionModal() {
                 </div>
               )}
 
+              {/* Contact Number */}
+              <div>
+                <label className="block text-sm font-medium text-white/80 mb-2">
+                  Contact Number
+                </label>
+                <div className="relative">
+                  <IconPhone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+                  <input
+                    type="tel"
+                    value={formData.contactNumber}
+                    onChange={handleChange("contactNumber")}
+                    placeholder="9876543210"
+                    maxLength={10}
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl bg-white/[0.04] border ${
+                      errors.contactNumber
+                        ? "border-red-500/50"
+                        : "border-white/10"
+                    } text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 transition-colors`}
+                  />
+                </div>
+                {errors.contactNumber && (
+                  <p className="mt-1 text-sm text-red-400">
+                    {errors.contactNumber}
+                  </p>
+                )}
+              </div>
+
               {/* Submit Error */}
               {submitError && (
                 <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-sm text-red-400">
@@ -230,10 +260,7 @@ export default function ProfileCompletionModal() {
               </button>
             </form>
 
-            {/* Skip option */}
-            <p className="mt-4 text-center text-sm text-white/40">
-              You can update this later in your profile settings
-            </p>
+            {/* Skip option removed - fields are compulsory */}
 
             {/* Legal Links */}
             <div className="mt-6 pt-4 border-t border-white/10 text-center text-xs text-white/30">

@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    contactNumber: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,

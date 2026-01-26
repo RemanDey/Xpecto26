@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
         if (data.success && data.user) {
           setUser(data.user);
           // Check if profile needs completion
-          if (!data.user.collegeName) {
+          if (!data.user.collegeName || !data.user.contactNumber) {
             setShowProfileCompletion(true);
           }
         }
@@ -185,10 +185,10 @@ export const AuthProvider = ({ children }) => {
     if (!user) return [];
     if (userHasWorkspaceEmail) {
       // Workspace email users only need to provide college name
-      return ["collegeName"];
+      return ["collegeName", "contactNumber"];
     }
     // Non-workspace email users need both college email and name
-    return ["collegeName", "collegeEmail"];
+    return ["collegeName", "collegeEmail", "contactNumber"];
   };
 
   const value = {
