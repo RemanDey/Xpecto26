@@ -25,6 +25,7 @@ import proniteRoutes from "./routes/proniteRoutes.js";
 import ticketRoutes from "./routes/ticketRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
+import leadRoutes from "./routes/leadRoutes.js";
 
 // Connect to database
 connectDB();
@@ -134,6 +135,7 @@ app.use("/api/workshops", workshopRoutes);
 app.use("/api/pronites", proniteRoutes);
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/team", teamRoutes);
+app.use("/api/leads", leadRoutes);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);

@@ -17,7 +17,7 @@ import LoadingScreen from "./components/ui/LoadingScreen";
 import ProfileCompletionModal from "./components/ProfileCompletionModal";
 import GoogleOneTap from "./components/GoogleOneTap";
 import { AuthProvider } from "./context/AuthContext";
-import Exhibitions from "./pages/Exhibitions";
+import Register from "./pages/Register";
 import Sessions from "./pages/Sessions";
 import HamburgerMenu from "./components/ui/HamburgerMenu";
 
@@ -64,6 +64,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} /> 
             <Route path="/workshops" element={<Sessions />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/auth/success" element={<AuthSuccess />} />
             <Route path="/auth/error" element={<AuthError />} />

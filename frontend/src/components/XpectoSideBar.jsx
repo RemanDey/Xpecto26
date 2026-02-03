@@ -36,6 +36,11 @@ export default function XpectoSideBar({ children }) {
       icon: <IconUsers className="h-5 w-5" />,
     },
     {
+      label: "Register",
+      href: "/register",
+      icon: <IconPresentation className="h-5 w-5" />,
+    },
+    {
       label: "About",
       href: "/about",
       icon: <IconInfoCircle className="h-5 w-5" />,
